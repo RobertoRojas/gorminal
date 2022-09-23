@@ -7,24 +7,22 @@ import (
 
 var OverrideEnv bool
 
-var colorMode golor.GolorMode
 var colorEnv bool
 
 func SetColorMode(m golor.GolorMode) {
 	if colorEnv && !OverrideEnv {
 		return
 	}
-	colorMode = m
+	golor.Mode = m
 }
 
-var soundMode golor.GolorSound
 var soundEnv bool
 
 func SetSoundMode(m golor.GolorSound) {
 	if soundEnv && !OverrideEnv {
 		return
 	}
-	soundMode = m
+	golor.Sound = m
 }
 
 var dynamicSize bool

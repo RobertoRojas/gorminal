@@ -29,29 +29,29 @@ func init() {
 	if v := os.Getenv("GORMIAL_COLOR_MODE"); len(v) > 0 {
 		switch strings.ToLower(v) {
 		case "bit8":
-			colorMode = golor.Bit8
+			golor.Mode = golor.Bit8
 		case "bit256":
-			colorMode = golor.Bit256
+			golor.Mode = golor.Bit256
 		case "bitrgb":
-			colorMode = golor.BitRGB
+			golor.Mode = golor.BitRGB
 		default:
-			colorMode = golor.Plain
+			golor.Mode = golor.Plain
 		}
 		colorEnv = true
 	} else {
-		colorMode = golor.Plain
+		golor.Mode = golor.Plain
 		colorEnv = false
 	}
 	if v := os.Getenv("GORMIAL_SOUND_MODE"); len(v) > 0 {
 		switch strings.ToLower(v) {
 		case "active":
-			soundMode = golor.Active
+			golor.Sound = golor.Active
 		default:
-			soundMode = golor.Mute
+			golor.Sound = golor.Mute
 		}
 		soundEnv = true
 	} else {
-		soundMode = golor.Mute
+		golor.Sound = golor.Mute
 		soundEnv = false
 	}
 	dynamicSize, dynamicSizeEnv = getBoolFromEnv("GORMIAL_DYNAMIC_SIZE", true)
@@ -59,11 +59,11 @@ func init() {
 	if defTermSize < 1 {
 		defTermSize = 58
 	}
-	messageLevel, messageLevelEnv = getIntFromEnv("GORMIAL_", 1)
-	errorLevel, errorLevelEnv = getIntFromEnv("GORMIAL_MESSAGE_LEVEL", 1)
-	debugLevel, debugLevelEnv = getIntFromEnv("GORMIAL_ERROR_LEVEL", 0)
-	warningLevel, warningLevelEnv = getIntFromEnv("GORMIAL_WARNING_LEVEL", 1)
-	verboseLevel, verboseLevelEnv = getIntFromEnv("GORMIAL_VERBOSE_LEVEL", 0)
-	outputLevel, outputLevelEnv = getIntFromEnv("GORMIAL_OUTPUT_LEVEL", 1)
+	messageLevel, messageLevelEnv = getIntFromEnv("GORMIAL_", 0)
+	errorLevel, errorLevelEnv = getIntFromEnv("GORMIAL_MESSAGE_LEVEL", 0)
+	debugLevel, debugLevelEnv = getIntFromEnv("GORMIAL_ERROR_LEVEL", -1)
+	warningLevel, warningLevelEnv = getIntFromEnv("GORMIAL_WARNING_LEVEL", 0)
+	verboseLevel, verboseLevelEnv = getIntFromEnv("GORMIAL_VERBOSE_LEVEL", -1)
+	outputLevel, outputLevelEnv = getIntFromEnv("GORMIAL_OUTPUT_LEVEL", -1)
 	OverrideEnv = false
 }
