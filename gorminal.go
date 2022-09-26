@@ -47,11 +47,21 @@ func SetDefTermSize(s int) {
 	defTermSize = s
 }
 
+var cols int
+var rows int
+
+func updateTermSize() {
+	cols, rows = consolesize.GetConsoleSize()
+}
+
 func getTermSize() (int, int) {
 	if !dynamicSize {
 		return defTermSize, 0
 	}
-	return consolesize.GetConsoleSize()
+	if cols == 0 && rows == 0 {
+		updateTermSize()
+	}
+	return cols, rows
 }
 
 var quiet bool

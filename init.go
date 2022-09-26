@@ -72,11 +72,11 @@ func init() {
 		soundEnv = false
 	}
 	dynamicSize, dynamicSizeEnv = getBoolFromEnv("GORMIAL_DYNAMIC_SIZE", true)
-	defTermSize, defTermSizeEnv = getIntFromEnv("GORMIAL_DEFAULT_TERMINAL_SIZE", 58)
+	defTermSize, defTermSizeEnv = getIntFromEnv("GORMIAL_DEFAULT_TERMINAL_SIZE", 80)
 	if defTermSize < 1 {
 		defTermSize = 58
 	}
-	quiet, quietEnv = getBoolFromEnv("GORMINAL_QUIET", true)
+	quiet, quietEnv = getBoolFromEnv("GORMINAL_QUIET", false)
 	output, outputEnv = getBoolFromEnv("GORMINAL_OUTPUT", false)
 	messageLevel, messageLevelEnv = getIntFromEnv("GORMIAL_MESSAGE_LEVEL", 0)
 	errorLevel, errorLevelEnv = getIntFromEnv("GORMIAL_ERROR_LEVEL", 0)

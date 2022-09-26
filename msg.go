@@ -69,7 +69,7 @@ func ShowErrMsgCondln(m string, l int, c bool) {
 func ShowDbgMsg(m string, l int) {
 	g := golor.New()
 	g.Magenta().ColorBit256(63).
-		ColorBitRGB(153, 51, 255).Bold().
+		ColorBitRGB(255, 0, 255).Bold().
 		Add("[DEBUG] ").BoldReset().Add(m).Reset()
 	Show(g.String(), l <= debugLevel && !quiet, debugSTD)
 }
@@ -77,7 +77,7 @@ func ShowDbgMsg(m string, l int) {
 func ShowDbgMsgCond(m string, l int, c bool) {
 	g := golor.New()
 	g.Magenta().ColorBit256(63).
-		ColorBitRGB(153, 51, 255).Bold().
+		ColorBitRGB(255, 0, 255).Bold().
 		Add("[DEBUG] ").BoldReset().Add(m).Reset()
 	Show(g.String(), l <= debugLevel && c && !quiet, debugSTD)
 }
@@ -85,7 +85,7 @@ func ShowDbgMsgCond(m string, l int, c bool) {
 func ShowDbgMsgln(m string, l int) {
 	g := golor.New()
 	g.Magenta().ColorBit256(63).
-		ColorBitRGB(153, 51, 255).Bold().
+		ColorBitRGB(255, 0, 255).Bold().
 		Add("[DEBUG] ").BoldReset().Add(m).Reset()
 	Showln(g.String(), l <= debugLevel && !quiet, debugSTD)
 }
@@ -93,7 +93,7 @@ func ShowDbgMsgln(m string, l int) {
 func ShowDbgMsgCondln(m string, l int, c bool) {
 	g := golor.New()
 	g.Magenta().ColorBit256(63).
-		ColorBitRGB(153, 51, 255).Bold().
+		ColorBitRGB(255, 0, 255).Bold().
 		Add("[DEBUG] ").BoldReset().Add(m).Reset()
 	Showln(g.String(), l <= debugLevel && c && !quiet, debugSTD)
 }
@@ -182,4 +182,15 @@ func ShowOutputStrucIndent(o interface{}, prefix string, indent string, l int) {
 		return
 	}
 	ShowOutput(string(j), l)
+}
+
+func ShowLine(text string, line byte, corner byte, l int) {
+	c, e, r, t := GetLine(text, line, corner)
+	g := golor.New()
+	g.Magenta().ColorBit256(63).ColorBitRGB(255, 0, 255).
+		Add(c).Add(e).Reset().Cyan().ColorBit256(44).
+		ColorBitRGB(0, 255, 255).Add(t).Reset().Magenta().
+		ColorBit256(63).ColorBitRGB(255, 0, 255).Add(r).
+		Add(c).Reset()
+	ShowMsgLn(g.String(), l)
 }
