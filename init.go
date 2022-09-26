@@ -8,6 +8,23 @@ import (
 	"github.com/RobertoRojas/golor"
 )
 
+func getSTDFromEnv(eVar string, def *os.File) (os.File, bool) {
+	if v := os.Getenv(eVar); len(v) > 0 {
+		var value os.File
+		switch strings.ToLower(v) {
+		case "stdout":
+			value = *os.Stdout
+		case "stderr":
+			value = *os.Stderr
+		default:
+			value = *def
+		}
+		return value, true
+	}
+	return *def, false
+
+}
+
 func getIntFromEnv(eVar string, def int) (int, bool) {
 	if v := os.Getenv(eVar); len(v) > 0 {
 		u, err := strconv.ParseInt(v, 10, 32)
@@ -59,11 +76,19 @@ func init() {
 	if defTermSize < 1 {
 		defTermSize = 58
 	}
-	messageLevel, messageLevelEnv = getIntFromEnv("GORMIAL_", 0)
-	errorLevel, errorLevelEnv = getIntFromEnv("GORMIAL_MESSAGE_LEVEL", 0)
-	debugLevel, debugLevelEnv = getIntFromEnv("GORMIAL_ERROR_LEVEL", -1)
+	quiet, quietEnv = getBoolFromEnv("GORMINAL_QUIET", true)
+	output, outputEnv = getBoolFromEnv("GORMINAL_OUTPUT", false)
+	messageLevel, messageLevelEnv = getIntFromEnv("GORMIAL_MESSAGE_LEVEL", 0)
+	errorLevel, errorLevelEnv = getIntFromEnv("GORMIAL_ERROR_LEVEL", 0)
+	debugLevel, debugLevelEnv = getIntFromEnv("GORMIAL_DEBUG_LEVEL", -1)
 	warningLevel, warningLevelEnv = getIntFromEnv("GORMIAL_WARNING_LEVEL", 0)
 	verboseLevel, verboseLevelEnv = getIntFromEnv("GORMIAL_VERBOSE_LEVEL", -1)
 	outputLevel, outputLevelEnv = getIntFromEnv("GORMIAL_OUTPUT_LEVEL", -1)
+	messageSTD, messageSTDEnv = getSTDFromEnv("GORMINAL_MESSAGE_STD", os.Stdout)
+	errorSTD, errorSTDEnv = getSTDFromEnv("GORMINAL_ERROR_STD", os.Stderr)
+	debugSTD, debugSTDEnv = getSTDFromEnv("GORMINAL_DEBUG_STD", os.Stdout)
+	warningSTD, warningSTDEnv = getSTDFromEnv("GORMINAL_WARNING_STD", os.Stdout)
+	verboseSTD, verboseSTDEnv = getSTDFromEnv("GORMINAL_VERBOSE_STD", os.Stdout)
+	outputSTD, outputSTDEnv = getSTDFromEnv("GORMINAL_OUTPUT_STD", os.Stderr)
 	OverrideEnv = false
 }

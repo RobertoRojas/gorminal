@@ -1,6 +1,8 @@
 package gorminal
 
 import (
+	"os"
+
 	"github.com/RobertoRojas/golor"
 	"github.com/nathan-fiscaletti/consolesize-go"
 )
@@ -47,9 +49,29 @@ func SetDefTermSize(s int) {
 
 func getTermSize() (int, int) {
 	if !dynamicSize {
-		return int(defTermSize), 0
+		return defTermSize, 0
 	}
 	return consolesize.GetConsoleSize()
+}
+
+var quiet bool
+var quietEnv bool
+
+func SetQuiet(d bool) {
+	if quietEnv && !OverrideEnv {
+		return
+	}
+	quiet = d
+}
+
+var output bool
+var outputEnv bool
+
+func SetOutput(d bool) {
+	if outputEnv && !OverrideEnv {
+		return
+	}
+	output = d
 }
 
 var messageLevel int
@@ -62,6 +84,16 @@ func SetMessageLevel(l int) {
 	messageLevel = l
 }
 
+var messageSTD os.File
+var messageSTDEnv bool
+
+func SetMessageSTD(f os.File) {
+	if messageSTDEnv && !OverrideEnv {
+		return
+	}
+	messageSTD = f
+}
+
 var errorLevel int
 var errorLevelEnv bool
 
@@ -70,6 +102,16 @@ func SetErrorLevel(l int) {
 		return
 	}
 	errorLevel = l
+}
+
+var errorSTD os.File
+var errorSTDEnv bool
+
+func SetErrorSTD(f os.File) {
+	if errorSTDEnv && !OverrideEnv {
+		return
+	}
+	errorSTD = f
 }
 
 var debugLevel int
@@ -82,6 +124,16 @@ func SetDebugLevel(l int) {
 	debugLevel = l
 }
 
+var debugSTD os.File
+var debugSTDEnv bool
+
+func SetDebugSTD(f os.File) {
+	if debugLevelEnv && !OverrideEnv {
+		return
+	}
+	debugSTD = f
+}
+
 var warningLevel int
 var warningLevelEnv bool
 
@@ -90,6 +142,16 @@ func SetWarningLevel(l int) {
 		return
 	}
 	warningLevel = l
+}
+
+var warningSTD os.File
+var warningSTDEnv bool
+
+func SetWarningSTD(f os.File) {
+	if warningSTDEnv && !OverrideEnv {
+		return
+	}
+	warningSTD = f
 }
 
 var verboseLevel int
@@ -102,6 +164,16 @@ func SetVerboseLevel(l int) {
 	verboseLevel = l
 }
 
+var verboseSTD os.File
+var verboseSTDEnv bool
+
+func SetVerboseSTD(f os.File) {
+	if verboseSTDEnv && !OverrideEnv {
+		return
+	}
+	verboseSTD = f
+}
+
 var outputLevel int
 var outputLevelEnv bool
 
@@ -110,4 +182,14 @@ func SetOutputLevel(l int) {
 		return
 	}
 	outputLevel = l
+}
+
+var outputSTD os.File
+var outputSTDEnv bool
+
+func SetOutputSTD(f os.File) {
+	if outputSTDEnv && !OverrideEnv {
+		return
+	}
+	outputSTD = f
 }
